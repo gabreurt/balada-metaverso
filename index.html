@@ -1,0 +1,221 @@
+<head>
+  <title>Jukebox A-Frame</title>
+  <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.misc.min.js"></script>
+  <script src="https://unpkg.com/super-hands@^3.0.3/dist/super-hands.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.5.2/dist/aframe-extras.min.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const music1 = document.querySelector("#musica1");
+      const music2 = document.querySelector("#musica2");
+      const music3 = document.querySelector("#musica3");
+      const display = document.querySelector("#display");
+      const musics = [music3, music2, music1 ];
+      const images = ["#pop", "#brega", "#natal"];
+      let currentIndex = 0;
+  
+      function stopAllMusic() {
+        musics.forEach((music) => {
+          music.pause();
+          music.currentTime = 0;
+        });
+      }
+  
+      function playCurrentMusic() {
+        stopAllMusic();
+        musics[currentIndex].play();
+        display.setAttribute("src", images[currentIndex]);
+      }
+  
+      // Chamar a música automaticamente ao carregar a página
+      playCurrentMusic();
+  
+      // Eventos nos botões
+      document.querySelector("#play-button").addEventListener("click", () => {
+        playCurrentMusic();
+      });
+  
+      document.querySelector("#stop-button").addEventListener("click", () => {
+        stopAllMusic();
+      });
+  
+      document.querySelector("#next-button").addEventListener("click", () => {
+        currentIndex = (currentIndex + 1) % musics.length; // Avança para a próxima música
+        playCurrentMusic();
+      });
+
+      document.addEventListener("keydown", (event) => {
+      if (event.key.toLowerCase() === "m") {
+        currentIndex = (currentIndex + 1) % musics.length; // Avança para a próxima música
+        playCurrentMusic();
+      }
+    });
+    });
+  </script>
+</head>
+
+<body>
+  <a-scene>
+    <a-assets>
+      <img id="chao" src="./texturas/Texturelabs_Stone_168L.jpg" />
+      <img id="natal" src="./assets/img/sinatrao.jpg" />
+      <img id="brega" src="./assets/img/lenobrega.jpeg" />
+      <img id="pop" src="./assets/img/pophitsss.jpeg" />
+
+      <a-asset-item
+        id="game_machine"
+        src="./assets/elementos/Electronic Game.glb"
+      ></a-asset-item>
+      <a-asset-item
+        id="shreko"
+        src="./assets/modelos/dancing_stormtrooper.glb"
+      ></a-asset-item>
+      <a-asset-item
+        id="moca"
+        src="./assets/modelos/female_dancing.glb"
+      ></a-asset-item>
+      <a-asset-item
+        id="banana"
+        src="./assets/modelos/banana_dancing_fortnite.glb"
+      ></a-asset-item>
+      <a-asset-item
+        id="deadpool"
+        src="./assets/modelos/deadpool_dancing.glb"
+      ></a-asset-item>
+      <a-asset-item
+        id="robo"
+        src="./assets/modelos/robot_hip_hop_dancing.glb"
+      ></a-asset-item>
+      <a-asset-item
+      id="mickey"
+      src="./assets/modelos/micky_rumba_dancing.glb"
+    ></a-asset-item>
+      <a-asset-item
+      id="sonic"
+      src="./assets/modelos/the_dancing_movie_sonic.glb"
+    ></a-asset-item>
+      <audio
+        id="musica1"
+        src="./assets/sons/Frank Sinatra - Have Yourself A Merry Little Christmas (Official Video).mp3"
+      ></audio>
+      <audio id="musica2" src="./assets/sons/Mulher Peidona.mp3"></audio>
+      <audio
+        id="musica3"
+        src="./assets/sons/Charli xcx - 365 featuring shygirl (official audio).mp3"
+      ></audio>
+    </a-assets>
+    <a-entity>
+      <a-camera>
+        <a-cursor fuse="true" color="white"></a-cursor>
+      </a-camera>
+    </a-entity>
+    <a-sky
+      color="black"
+    ></a-sky>
+    <a-entity
+      gltf-model="./assets/modelos/animated_dance_floor_neon_lights.glb"
+      position="0 0 0"
+      rotation="0 0 0"
+      scale="10 10 10"
+      animation-mixer="clip: *; loop: repeat;"
+    ></a-entity>
+    </a-plane>
+    <a-entity gltf-model="#game_machine" position="-20 0 -2"></a-entity>
+    <a-entity
+      gltf-model="#moca"
+      position="0.0 0 -1"
+      rotation="0 0 0"
+      scale="0.02 0.02 0.02"
+      animation-mixer="clip: Animation; loop: repeat; timeScale: 1;"
+    ></a-entity>
+    <a-entity
+      gltf-model="#robo"
+      position="-2 0 -1"
+      rotation="0 0 0"
+      animation-mixer="clip: *; loop: repeat;"
+    ></a-entity>
+    <a-entity
+      gltf-model="#deadpool"
+      position="-2 0 2"
+      rotation="0 180 0"
+      animation-mixer="clip: hip; loop: repeat; timeScale: 1"
+    ></a-entity>
+    <a-entity
+    gltf-model="#sonic"
+    position="-5 0 2"
+    scale="0.02 0.02 0.02"
+    rotation="0 180 0"
+    animation-mixer="clip: *; loop: repeat; timeScale: 1"
+  ></a-entity>
+  <a-entity
+  gltf-model="#mickey"
+  position="-5.842 0 -1.948"
+  rotation="0 0 0"
+  animation-mixer="clip: *; loop: repeat; timeScale: 1"
+></a-entity>
+    <a-entity
+      gltf-model="#shreko"
+      position="2 0 0"
+      rotation="0 0 0"
+      animation-mixer="clip: *; loop: repeat; timeScale: 0.5"
+    ></a-entity>
+    <a-entity
+      gltf-model="#banana"
+      position="2 0 3"
+      rotation="0 180 0"
+      animation-mixer="clip: *; loop: repeat; timeScale: 0.5"
+    ></a-entity>
+    <!-- Luzes dinâmicas adicionais -->
+    <a-light
+      type="point"
+      position="-2 3 -2"
+      color="#00ff00"
+      intensity="0"
+      animation="property: light.color; to: #ffff00; dur: 800; dir: alternate; loop: true"
+    ></a-light>
+    <a-light
+      type="point"
+      position="20 3 -3"
+      color="#ff00ff"
+      intensity="2"
+      animation="property: light.color; to: #00ffff; dur: 1200; dir: alternate; loop: true"
+    ></a-light>
+
+    <a-light
+      type="point"
+      position="-20 3 -3"
+      color="#e6e7c9"
+      intensity="2"
+      animation="property: light.color; to: #e6e7c9; dur: 1200; dir: alternate; loop: true"
+    ></a-light>
+
+    <!-- Botões -->
+    <a-cylinder
+      id="play-button"
+      scale="0.06033 0.06033 0.06033"
+      position="-20.01432 0.92107 -0.86627"
+      color="green"
+    ></a-cylinder>
+    <a-cylinder
+      id="stop-button"
+      scale="0.08 0.08 0.08"
+      position="-20.18155 0.99669 -0.91508"
+      color="blue"
+    ></a-cylinder>
+    <a-cylinder
+      id="next-button"
+      scale="0.08 0.08 0.08"
+      position="-20.4262 0.9854 -1.00436"
+      color="crimson"
+    ></a-cylinder>
+    <!-- Display -->
+    <a-image
+      id="display"
+      src="#natal"
+      position="-19.582 1.099 -1.340"
+      rotation="-19.5 0 0"
+      scale="0.805 0.776 1.000"
+    ></a-image>
+  </a-scene>
+</body>
